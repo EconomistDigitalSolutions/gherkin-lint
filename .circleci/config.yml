@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  gherkin-lint:
+    docker:
+      - image: node:11.9
+
+    steps:
+      - checkout
+      - run: 
+          name: gherkin-lint
+          command: |
+            npm install
+            npm run test
+workflows:
+  version: 2
+  qaCop:
+    jobs:
+      - gherkin-lint
