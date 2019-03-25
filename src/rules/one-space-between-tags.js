@@ -9,8 +9,8 @@ function run(feature) {
   var errors = [];
 
   function testTags(allTags) {
-    _(allTags).sort(function(tag) {
-      return -tag.location.column;
+    _(allTags).sort(function(tag1, tag2) {
+      return tag1.location.column - tag2.location.column;
     }).groupBy(function(tag) {
       return tag.location.line;
     }).forEach(function(tags) {
