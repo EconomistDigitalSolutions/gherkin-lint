@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var linter = require('../../dist/linter.js');
+var linter = require('../../src/linter.js');
 
 describe('Linter', function() {
   it('detects up-to-one-background-per-file violations', function() {
