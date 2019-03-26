@@ -14,8 +14,18 @@ Feature: Feature with different scenario outline
       | DifferentScenarioOutlineAndScenarios3 |
       | DifferentScenarioOutlineAndScenarios4 |
 
-  Scenario: DifferentScenarioOutlineAndScenarios5
-    Then this is a then step
+  Scenario Outline: DifferentScenarioOutlineAndScenarios5
+    Then this is a then step <step>
+    Examples:
+      | step |
+      | 1    |
+      | 2    |
 
   Scenario: DifferentScenarioOutlineAndScenarios6
+    Then this is a then step
+
+  Scenario: DifferentScenarioOutlineAndScenarios7
+    Then this is a then step
+
+  Scenario: DifferentScenarioOutlineAndScenarios8
     Then this is a then step

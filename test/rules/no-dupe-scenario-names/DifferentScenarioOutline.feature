@@ -13,3 +13,10 @@ Feature: Feature with different scenario outline
       | Scenario                  |
       | DifferentScenarioOutline3 |
       | DifferentScenarioOutline4 |
+
+  Scenario Outline: DifferentScenarioOutline5
+    Then this is a then step <step>
+    Examples:
+      | step |
+      | 1    |
+      | 2    |

@@ -26,17 +26,25 @@ describe('No Duplicate Scenario Name Rule', function() {
     runTest('no-dupe-scenario-names/DuplicatedScenarioOutline.feature', {}, [{
       messageElements: {scenarioName: 'DuplicatedScenarioOutline', line: 3},
       line: 10
+    },
+    {
+      messageElements: {scenarioName: 'DuplicatedScenarioOutline', line: 3},
+      line: 17
     }]);
   });
 
   it('raise errors when simple scenarios and scenario outlines have same names', function() {
     runTest('no-dupe-scenario-names/DuplicatedScenarioOutlineAndScenarios.feature', {}, [{
       messageElements: {scenarioName: 'DuplicatedScenarioOutlineAndScenarios', line: 3},
-      line: 17
+      line: 24
     },
     {
       messageElements: {scenarioName: 'DuplicatedScenarioOutlineAndScenarios', line: 10},
-      line: 20
+      line: 27
+    },
+    {
+      messageElements: {scenarioName: 'DuplicatedScenarioOutlineAndScenarios', line: 17},
+      line: 30
     }]);
   });
 

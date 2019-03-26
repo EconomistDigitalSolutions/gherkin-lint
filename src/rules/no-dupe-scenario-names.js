@@ -9,13 +9,16 @@ function noDuplicateScenarioNames(feature, file) {
         let allScenarios = [];
         if (scenario.type === 'ScenarioOutline') {
           scenario.examples.forEach(function (example) {
-            example.tableBody.forEach(function (row) {
+            for (let row of example.tableBody) {
               let scenarioName = scenario.name;
               example.tableHeader.cells.forEach(function(header, index) {
                 scenarioName = scenarioName.replace(`<${header.value}>`, row.cells[index].value);
               });
               allScenarios.push(scenarioName);
-            });
+              if (scenarioName === scenario.name) {
+                break;
+              }
+            }
           });
         } else {
           allScenarios.push(scenario.name);
