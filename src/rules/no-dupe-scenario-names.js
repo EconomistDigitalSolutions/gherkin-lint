@@ -6,15 +6,33 @@ function noDuplicateScenarioNames(feature, file) {
     var errors = [];
     feature.children.forEach(function(scenario) {
       if (scenario.name) {
-        if (scenario.name in scenarios) {
-          var dupes = getFileLinePairsAsStr(scenarios[scenario.name].locations);
-          scenarios[scenario.name].locations.push({file: file.name, line: scenario.location.line});
-          errors.push({message: 'Scenario name is already used in: ' + dupes,
-            rule   : rule,
-            line   : scenario.location.line});
+        let allScenarios = [];
+        if (scenario.type === 'ScenarioOutline') {
+          scenario.examples.forEach(function (example) {
+            example.tableBody.forEach(function (row) {
+              let scenarioName = scenario.name;
+              example.tableHeader.cells.forEach(function(header, index) {
+                scenarioName = scenarioName.replace(`<${header.value}>`, row.cells[index].value);
+              });
+              allScenarios.push(scenarioName);
+            });
+          });
         } else {
-          scenarios[scenario.name] = {locations: [{file: file.name, line: scenario.location.line}]};
+          allScenarios.push(scenario.name);
         }
+        allScenarios.forEach(function (scenarioName) {
+          if (scenarioName in scenarios) {
+            var dupes = getFileLinePairsAsStr(scenarios[scenarioName].locations);
+            scenarios[scenarioName].locations.push({file: file.name, line: scenario.location.line});
+            errors.push({
+              message: 'Scenario name is already used in: ' + dupes,
+              rule: rule,
+              line: scenario.location.line
+            });
+          } else {
+            scenarios[scenarioName] = {locations: [{file: file.name, line: scenario.location.line}]};
+          }
+        });
       }
     });
     return errors;

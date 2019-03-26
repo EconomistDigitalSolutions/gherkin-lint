@@ -15,8 +15,13 @@ function createRuleTest(rule, messageTemplate) {
         line: error.line
       };
     });
-    var parsedFile = parser.parse(fs.readFileSync('test/rules/' + featureFile, 'utf8')).feature;
-    assert.sameDeepMembers(rule.run(parsedFile, undefined, configuration), expectedErrors);
+    var fileContent = fs.readFileSync('test/rules/' + featureFile, 'utf8');
+    var parsedFile = parser.parse(fileContent).feature;
+    var file = {
+      name: featureFile,
+      lines: fileContent.split(/\r\n|\r|\n/)
+    };
+    assert.sameDeepMembers(rule.run(parsedFile, file, configuration), expectedErrors);
   };
 }
 
